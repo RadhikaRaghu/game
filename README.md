@@ -1,3 +1,5 @@
+package project;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -5,17 +7,20 @@ import java.awt.event.KeyListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
+
+import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 public class G extends JPanel implements ActionListener, KeyListener 
 {
 						
-					Timer tm = new Timer(1000,this);
-					
+Timer tm = new Timer(1000,this);
+JLabel label;				
 
-int x = 135, y = 540, velX = 0, velY = 0;
-int y1 = 0,velY1 = 60;
+int x = 0, y = 540, velX = 0, velY = 0;
+int y1 = 0,velY1 = 60,count=0;
 int colorrand;
 int randomPosition, randomPosition2;
 int rowLength = 9;
@@ -51,7 +56,7 @@ colorrand = rgen.nextInt(7);
 	case 2: g.setColor(Color.green);break;
 	case 3: g.setColor(Color.yellow);break;
 	case 4: g.setColor(Color.magenta);break;
-	case 5: g.setColor(Color.orange);break;
+	case 5: g.setColor(Color.red);break;
 	case 6: g.setColor(Color.red);break;
 	case 7: g.setColor(Color.gray);break;
 	}
@@ -65,16 +70,26 @@ colorrand = rgen.nextInt(7);
 }
 public void actionPerformed(ActionEvent e){
 		
-	Random rgen = new Random();  
-	randomPosition = rgen.nextInt(4);
+		Random rgen = new Random();  
+		randomPosition = rgen.nextInt(5);
 
 		for(int i=rowLength-1;i>0;i--){
 				xRandom[i]= xRandom[i-1];
 				colorRandom1[i] = colorRandom1[i-1];
 		}
-		colorRandom1[0] = rgen.nextInt(5);
-					xRandom[0] = randomPosition;
-					repaint();
+		colorRandom1[0] = rgen.nextInt(7);
+		xRandom[0] = randomPosition;
+		repaint();
+					
+					
+					if(x>=((xRandom[8]*60)-25)&&x<=(xRandom[8]*60)-85){
+							count++;
+							label = new JLabel("hello");
+							add(label);
+							
+					}
+					
+	
 }
 public void keyPressed(KeyEvent e)
 {
@@ -82,10 +97,10 @@ int c = e.getKeyCode();
 
 		if(c == KeyEvent.VK_LEFT)
 		{
-			x=x-5;
+			x=x-7;
 		}
 		if(c == KeyEvent.VK_RIGHT){
-			x=x+5;
+			x=x+7;
 		}
 }
 
@@ -94,25 +109,13 @@ int c = e.getKeyCode();
 		G t=new G();
 		JFrame jf = new JFrame();
 		jf.setTitle("Square Tiles");
-		jf.setSize(300,600);
+		jf.setSize(320,610);
 		jf.setResizable(true);
 		jf.setVisible(true);
 		jf.setLocationRelativeTo(null);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.add(t);
+		
 		}
 
-@Override
-public void keyReleased(KeyEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void keyTyped(KeyEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-
-		}
-
+	}	
